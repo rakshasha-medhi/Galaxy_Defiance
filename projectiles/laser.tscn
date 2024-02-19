@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://75l6u26p4j7l"]
+
+[ext_resource type="Script" path="res://projectiles/laser.gd" id="1_lmjra"]
+[ext_resource type="Texture2D" uid="uid://cys4evmu1ichr" path="res://resources/galaxy_defiance_resources/assets/laser_small.png" id="1_wqdtx"]
+[ext_resource type="Script" path="res://resources/galaxy_defiance_resources/components/move_component.gd" id="2_klhex"]
+[ext_resource type="Script" path="res://resources/galaxy_defiance_resources/components/scale_component.gd" id="4_tejjc"]
+[ext_resource type="Script" path="res://resources/galaxy_defiance_resources/components/flash_component.gd" id="5_mw07w"]
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_lmjra")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wqdtx")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_klhex")
+actor = NodePath("..")
+velocity = Vector2(0, -300)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.19209e-07, 1)
+scale = Vector2(0.2, 0.4)
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_tejjc")
+sprite = NodePath("../Sprite2D")
+scale_duration = 0.5
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("5_mw07w")
+sprite = NodePath("../Sprite2D")
+flash_duration = 0.1
